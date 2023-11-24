@@ -53,8 +53,9 @@ func (bx *Boxed) addRow(dst *[]Row, row Row) error {
 
 	for i, col := range row.cells {
 		v := fmt.Sprintf("%v", col)
-		if bx.cellWidth[i] < len(v) {
-			bx.cellWidth[i] = len(v)
+		l := len(StripNoneGraphic(v))
+		if bx.cellWidth[i] < l {
+			bx.cellWidth[i] = l
 		}
 	}
 	*dst = append(*dst, row)
@@ -173,7 +174,8 @@ func (bx *Boxed) row(w io.Writer, row Row, header bool) error {
 			Fprint(w, " ")
 		}
 
-		content := fmt.Sprintf("%-*v", bx.cellWidth[j], col)
+		v := fmt.Sprintf("%v", col)
+		content := v + strings.Repeat(" ", bx.cellWidth[j]-len(StripNoneGraphic(v)))
 		Fprint(w, content)
 
 		if j == len(row.cells)-1 {
@@ -240,7 +242,6 @@ func (bx *Boxed) render(w io.Writer) error {
 // Render will print the result to STDOUT. Use RenderTo to write to an io.Writer,
 // or RenderAsString to get the string.
 func (bx *Boxed) Render() error {
-
 	return bx.render(os.Stdout)
 }
 
