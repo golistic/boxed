@@ -24,8 +24,8 @@ func StripNoneGraphic(s string) string {
 	var stripped strings.Builder
 	inCode := false
 
-	sl := len(s)
 	runes := []rune(s)
+	sl := len(runes)
 
 	for i := 0; i < sl; i++ {
 		r := runes[i]
