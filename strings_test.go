@@ -36,6 +36,10 @@ func TestStripNoneGraphic(t *testing.T) {
 				got: "\033]0;Window title change\a",
 				exp: "]0;Window title change",
 			},
+			{
+				got: "crème brûlée",
+				exp: "crème brûlée",
+			},
 		}
 
 		for _, c := range cases {
