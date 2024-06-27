@@ -10,8 +10,6 @@ import (
 	"strings"
 
 	"github.com/mattn/go-runewidth"
-
-	style2 "github.com/golistic/boxed/style"
 )
 
 // Boxed defines a headers, rows with cells and how to display them.
@@ -20,7 +18,7 @@ type Boxed struct {
 	rows      []Row
 	headers   []Row
 	cellWidth []int
-	style     *style2.Style
+	style     *Style
 }
 
 // New instantiates a box instance.

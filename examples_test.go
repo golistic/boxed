@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/golistic/boxed"
-	"github.com/golistic/boxed/style"
 )
 
 func ExampleBasic() {
@@ -36,7 +35,7 @@ func ExampleBasic() {
 
 func ExampleANSI_mysql() {
 
-	box := boxed.New(boxed.WithStyle(style.ANSI))
+	box := boxed.New(boxed.WithStyle(boxed.ANSI))
 
 	_ = box.AddHeader("id", "user", "host", "locked")
 	_ = box.Append(
@@ -59,7 +58,7 @@ func ExampleANSI_mysql() {
 
 func ExampleANSI_psql() {
 
-	box := boxed.New(boxed.WithStyle(style.ANSINoOuter))
+	box := boxed.New(boxed.WithStyle(boxed.ANSINoOuter))
 
 	_ = box.AddHeader("id", "user", "host", "locked")
 	_ = box.Append(
@@ -84,7 +83,7 @@ func ExampleANSI_psql() {
 
 func ExampleRecord() {
 
-	box := boxed.New(boxed.WithStyle(style.Record))
+	box := boxed.New(boxed.WithStyle(boxed.Record))
 
 	_ = box.Append(
 		boxed.NewRow("username", "alice"),

@@ -21,7 +21,6 @@ package boxed_test
 
 import (
 	"github.com/golistic/boxed"
-	"github.com/golistic/boxed/style"
 )
 
 func ExampleBasic() {
@@ -56,12 +55,11 @@ import (
 	"strings"
 	
 	"github.com/golistic/boxed"
-	"github.com/golistic/boxed/style"
 )
 
 func ExampleSettings() {
 
-	box := boxed.New(boxed.WithStyle(style.Record))
+	box := boxed.New(boxed.WithStyle(boxed.Record))
 
 	_ = box.Append(
 		boxed.NewRow("username", "alice"),
@@ -88,7 +86,7 @@ func ExampleSettings() {
 ## Basic
 
 ```
-box := boxed.New(boxed.WithStyle(style.Basic))
+box := boxed.New(boxed.WithStyle(boxed.Basic))
 ```
 
 ```
@@ -104,7 +102,7 @@ box := boxed.New(boxed.WithStyle(style.Basic))
 ### BasicNoOuter
 
 ```
-box := boxed.New(boxed.WithStyle(style.BasicNoOuter))
+box := boxed.New(boxed.WithStyle(boxed.BasicNoOuter))
 ```
 
 ```
@@ -120,7 +118,7 @@ box := boxed.New(boxed.WithStyle(style.BasicNoOuter))
 This mimics the MySQL CLI output.
 
 ```
-box := boxed.New(boxed.WithStyle(style.ANSI))
+box := boxed.New(boxed.WithStyle(boxed.ANSI))
 ```
 
 ```
@@ -136,7 +134,7 @@ box := boxed.New(boxed.WithStyle(style.ANSI))
 ### ANSINoOuter
 
 ```
-box := boxed.New(boxed.WithStyle(style.ANSINoOuter))
+box := boxed.New(boxed.WithStyle(boxed.ANSINoOuter))
 ```
 
 This mimics the PostgreSQL CLI output.
@@ -152,7 +150,7 @@ This mimics the PostgreSQL CLI output.
 ## Record
 
 ```
-box := boxed.New(boxed.WithStyle(style.Record))
+box := boxed.New(boxed.WithStyle(boxed.Record))
 ```
 
 No boxes here: we are showing a "record" which is actually a table with only 2 columns.

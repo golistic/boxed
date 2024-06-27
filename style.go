@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2023, Geert JM Vanderkelen
+ * Copyright (c) 2024, Geert JM Vanderkelen
  */
 
-package style
+package boxed
 
 type Style struct {
 	HorizontalTop    string

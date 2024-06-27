@@ -7,8 +7,6 @@ import (
 	"testing"
 
 	"github.com/golistic/xgo/xt"
-
-	"github.com/golistic/boxed/style"
 )
 
 func TestBoxed_AddRows(t *testing.T) {
@@ -186,7 +184,7 @@ func TestBoxed_AddHeader(t *testing.T) {
  2A │ 2B  │ 2C    
 `
 
-		g := New(WithStyle(style.BasicNoOuter))
+		g := New(WithStyle(BasicNoOuter))
 
 		xt.OK(t, g.AddHeader("A", "B B", "C C C"))
 		xt.OK(t, g.Append(
@@ -207,7 +205,7 @@ Active : true
 API    : https://api.example.com
 `
 
-		g := New(WithStyle(style.Record))
+		g := New(WithStyle(Record))
 
 		xt.OK(t, g.Append(
 			NewRow("Active", true),
