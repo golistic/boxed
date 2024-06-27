@@ -40,6 +40,14 @@ func TestStripNoneGraphic(t *testing.T) {
 				got: "crème brûlée",
 				exp: "crème brûlée",
 			},
+			{
+				got: "\u001B[1mcrème brûlée\u001B[0m",
+				exp: "crème brûlée",
+			},
+			{
+				got: "\u001B[32m1B\u001B[0m",
+				exp: "1B",
+			},
 		}
 
 		for _, c := range cases {

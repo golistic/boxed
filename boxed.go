@@ -9,6 +9,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/mattn/go-runewidth"
+
 	style2 "github.com/golistic/boxed/style"
 )
 
@@ -53,7 +55,7 @@ func (bx *Boxed) addRow(dst *[]Row, row Row) error {
 
 	for i, col := range row.cells {
 		v := fmt.Sprintf("%v", col)
-		l := len(StripNoneGraphic(v))
+		l := runewidth.StringWidth(StripNoneGraphic(v))
 		if bx.cellWidth[i] < l {
 			bx.cellWidth[i] = l
 		}
@@ -96,7 +98,7 @@ func (bx *Boxed) top(w io.Writer, header bool) {
 	top := b.TopLeft
 
 	for i, width := range bx.cellWidth {
-		top += strings.Repeat(b.HorizontalTop, width+2)
+		top += strings.Repeat(b.HorizontalTop, width+2) // +2 compensates corner/cross
 		if i == len(bx.cellWidth)-1 {
 			top += b.TopRight
 		} else {
@@ -159,6 +161,8 @@ func (bx *Boxed) headerBottom(w io.Writer) {
 
 func (bx *Boxed) row(w io.Writer, row Row, header bool) error {
 
+	const space = " "
+
 	b := bx.style
 	if header && b.Header != nil {
 		b = b.Header
@@ -168,23 +172,23 @@ func (bx *Boxed) row(w io.Writer, row Row, header bool) error {
 		if j == 0 {
 			Fprint(w, b.VerticalLeft)
 			if b.VerticalLeft != "" || bx.haveHeader() {
-				Fprint(w, " ")
+				Fprint(w, space)
 			}
 		} else {
-			Fprint(w, " ")
+			Fprint(w, space)
 		}
 
-		v := fmt.Sprintf("%v", col)
-		content := v + strings.Repeat(" ", bx.cellWidth[j]-len(StripNoneGraphic(v)))
+		value := fmt.Sprintf("%v", col)
+		content := value + strings.Repeat(space, bx.cellWidth[j]-runewidth.StringWidth(StripNoneGraphic(value)))
 		Fprint(w, content)
 
 		if j == len(row.cells)-1 {
 			if b.VerticalRight != "" || bx.haveHeader() {
-				Fprint(w, " ")
+				Fprint(w, space)
 			}
 			Fprint(w, b.VerticalRight+"\n")
 		} else {
-			Fprint(w, " ")
+			Fprint(w, space)
 			Fprint(w, b.Vertical)
 		}
 	}

@@ -32,12 +32,12 @@ func StripNoneGraphic(s string) string {
 
 		switch {
 		case r == 0x1b: // or 27 or \033 or \u001b
-			if sl-1 != i && (s[i+1] == '[') {
+			// ignore the escape
+			if sl-1 != i && (runes[i+1] == '[') {
 				inCode = true
 				i++
 			}
-			// ignore the escape
-		case inCode && (r >= 0x40 && r <= 0x7e):
+		case inCode && ((r >= 0x41 && r <= 0x5a) || (r >= 0x61 && r <= 0x7a)):
 			inCode = false
 		case !inCode:
 			if unicode.IsGraphic(r) {
