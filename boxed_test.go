@@ -90,6 +90,52 @@ func TestBoxed_AddRows(t *testing.T) {
 
 		xt.Eq(t, exp, have)
 	})
+
+	t.Run("with non-ANSI and ANSI-codes", func(t *testing.T) {
+
+		exp := strings.Join([]string{
+			"",
+			"┌────┬──────────────┐",
+			"│ \033[2J2A │ \033[1mcrème brûlée\033[0m │",
+			"│ 1A │ \033[32m1B\033[0m           │",
+			"└────┴──────────────┘",
+			"",
+		}, "\n")
+
+		box := New()
+		xt.OK(t, box.Append([]Row{
+			NewRow("\033[2J2A", "\033[1mcrème brûlée\033[0m"),
+			NewRow("1A", "\033[32m1B\033[0m"),
+		}...))
+
+		have := "\n" + box.RenderAsString() // extra newline for pretty output
+
+		xt.Eq(t, exp, have)
+	})
+
+	t.Run("with non-ANSI and no-ANSI-codes", func(t *testing.T) {
+
+		exp := strings.Join([]string{
+			"",
+			"┌────┬────────────────┐",
+			"│ 1A │ 1B             │",
+			"│ 2A │ crème brûlée   │",
+			"│ 3A │ ウィキペディア │", // wikipedia in Japanese
+			"└────┴────────────────┘",
+			"",
+		}, "\n")
+
+		box := New()
+		xt.OK(t, box.Append([]Row{
+			NewRow("1A", "1B"),
+			NewRow("2A", "crème brûlée"),
+			NewRow("3A", "ウィキペディア"),
+		}...))
+
+		have := "\n" + box.RenderAsString() // extra newline for pretty output
+
+		xt.Eq(t, exp, have)
+	})
 }
 
 func TestBoxed_AddHeader(t *testing.T) {
